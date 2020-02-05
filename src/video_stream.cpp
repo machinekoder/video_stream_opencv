@@ -306,6 +306,14 @@ virtual bool subscribe() {
   cap->set(cv::CAP_PROP_HUE, latest_config.hue);
   cap->set(cv::CAP_PROP_SATURATION, latest_config.saturation);
 
+  if (latest_config.auto_focus) {
+      cap->set(cv::CAP_PROP_AUTOFOCUS, 1);
+      latest_config.focus = 0.5;
+  } else {
+      cap->set(cv::CAP_PROP_AUTOFOCUS, 0);
+      cap->set(cv::CAP_PROP_FOCUS, latest_config.focus);
+  }
+
   if (latest_config.auto_exposure) {
     cap->set(cv::CAP_PROP_AUTO_EXPOSURE, 0.75);
     latest_config.exposure = 0.5;
